@@ -107,7 +107,7 @@ function PackageDetails() {
     pkg.imageUrl
       ? pkg.imageUrl.startsWith("http")
         ? pkg.imageUrl
-        : `https://localhost:7036${pkg.imageUrl}`
+        : `https://travelist-backend-i8zf.onrender.com/${pkg.imageUrl}`
       : "https://via.placeholder.com/600x300"
   }
   alt={pkg.title}
