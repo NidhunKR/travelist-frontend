@@ -12,7 +12,7 @@ function PackageDetails() {
   useEffect(() => {
     const fetchPackage = async () => {
       try {
-        const res = await API.get(`/api/Package/${id}`);
+        const res = await API.get(`/api/package/${id}`);
         setPkg(res.data);
       } catch (err) {
         console.log("Error loading package:", err);
@@ -42,7 +42,7 @@ function PackageDetails() {
       const formattedDate = new Date(travelDate).toISOString();
 
       await API.post(
-        `/Booking?packageId=${pkg.id}&travelDate=${formattedDate}`,
+        `/api/Booking?packageId=${pkg.id}&travelDate=${formattedDate}`,
         {},
         {
           headers: {
