@@ -17,7 +17,7 @@ function EditTrip() {
 
   // 🔹 Load Package Details
   useEffect(() => {
-    api.get(`/Package/${id}`)
+    api.get(`/api/package/${id}`)
       .then(res => {
         const pkg = res.data;
         setTitle(pkg.title);
@@ -32,7 +32,7 @@ function EditTrip() {
 
   // 🔹 Load Destinations
   useEffect(() => {
-    api.get("/Destination")
+    api.get("/api/destination")
       .then(res => setDestinations(res.data))
       .catch(err => console.log("Error loading destinations:", err));
   }, []);
@@ -55,7 +55,7 @@ function EditTrip() {
 
     try {
       // ✅ DO NOT set headers manually
-      await api.put(`/Package/${id}`, formData);
+      await api.put(`/api/package/${id}`, formData);
 
       alert("Package updated successfully!");
       navigate("/trips");
@@ -121,7 +121,7 @@ function EditTrip() {
           <div>
             <p>Current Image:</p>
             <img
-              src={`https://localhost:7234${currentImage}`}
+              src={`https://travelist-backend-i8zf.onrender.com/${currentImage}`}
               alt="Current"
               style={{
                 width: "100%",
