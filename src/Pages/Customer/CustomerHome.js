@@ -10,7 +10,7 @@ function CustomerHome() {
   useEffect(() => {
     const fetchPackages = async () => {
       try {
-        const res = await API.get("/Package");
+        const res = await API.get("/api/Package");
         setPackages(res.data);
       } catch (err) {
         console.log("Error loading packages:", err);
@@ -93,7 +93,7 @@ const filteredPackages = packages.filter((pkg) =>
             <img
   src={
     pkg.imageUrl
-      ? `https://localhost:7036/${pkg.imageUrl}`
+      ? `https://travelist-backend-i8zf.onrender.com/${pkg.imageUrl}`
       : "https://via.placeholder.com/400x250?text=No+Image"
   }
   alt={pkg.title}
