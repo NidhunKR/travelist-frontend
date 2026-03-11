@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://localhost:7036/api",
+  baseURL: "https://travelist-backend-i8zf.onrender.com",
 });
 
 api.interceptors.request.use((req) => {
