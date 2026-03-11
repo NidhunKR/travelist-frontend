@@ -12,7 +12,7 @@ function DestinationManagement() {
   // Load Destinations
   const fetchDestinations = async () => {
     try {
-      const res = await api.get("/Destination");
+      const res = await api.get("/api/Destination");
       setDestinations(res.data);
     } catch (err) {
       console.log("Error loading destinations:", err);
@@ -39,13 +39,13 @@ function DestinationManagement() {
 
     if (editingId) {
 
-      await api.put(`/Destination/${editingId}`, formData);
+      await api.put(`/api/Destination/${editingId}`, formData);
 
       alert("Destination updated!");
 
     } else {
 
-      await api.post("/Destination", formData);
+      await api.post("/api/Destination", formData);
 
       alert("Destination added!");
 
@@ -80,7 +80,7 @@ function DestinationManagement() {
 
     try {
 
-      await api.delete(`/Destination/${id}`);
+      await api.delete(`/api/Destination/${id}`);
 
       alert("Deleted successfully!");
 
@@ -168,7 +168,7 @@ function DestinationManagement() {
 
             {dest.imageUrl && (
               <img
-                src={`https://localhost:7036${dest.imageUrl}`}
+                src={`https://travelist-backend-i8zf.onrender.com${dest.imageUrl}`}
                 alt={dest.name}
                 width="70"
                 style={{ borderRadius: "6px" }}
