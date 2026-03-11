@@ -10,7 +10,7 @@ function AdminBookings() {
 
   const fetchBookings = async () => {
     try {
-      const res = await API.get("/Booking/all");
+      const res = await API.get("/api/booking/all");
       setBookings(res.data);
     } catch (err) {
       console.log("Error loading bookings:", err);
@@ -19,7 +19,7 @@ function AdminBookings() {
 
   const updateStatus = async (id, status) => {
     try {
-      await API.put(`/Booking/${id}/status?status=${status}`);
+      await API.put(`/api/booking/${id}/status?status=${status}`);
       fetchBookings(); // reload bookings
     } catch (err) {
       console.log("Status update error:", err);
