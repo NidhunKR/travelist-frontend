@@ -18,7 +18,7 @@ function Dashboard() {
 
   useEffect(() => {
     // Get profile
-    api.get("/Auth/profile")
+    api.get("/api/Auth/profile")
       .then(res => {
         setEmail(res.data.userEmail);
       })
@@ -28,17 +28,17 @@ function Dashboard() {
       });
 
     // Get Destinations
-    api.get("/Destination")
+    api.get("/api/Destination")
       .then(res => setDestinationCount(res.data.length))
       .catch(err => console.log(err));
 
     // Get Packages
-    api.get("/Package")
+    api.get("/api/Package")
       .then(res => setPackageCount(res.data.length))
       .catch(err => console.log(err));
 
     // Get Bookings
-    api.get("/Booking/all")
+    api.get("/api/Booking/all")
       .then(res => setBookingCount(res.data.length))
       .catch(err => console.log(err));
 
