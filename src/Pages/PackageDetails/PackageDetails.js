@@ -12,7 +12,7 @@ function PackageDetails() {
   useEffect(() => {
     const fetchPackage = async () => {
       try {
-        const res = await API.get(`/Package/${id}`);
+        const res = await API.get(`/api/Package/${id}`);
         setPkg(res.data);
       } catch (err) {
         console.log("Error loading package:", err);
