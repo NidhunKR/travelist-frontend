@@ -1,21 +1,28 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+
 import Login from "./Pages/Login/Login";
+import Register from "./Pages/Login/Register";
+
 import Dashboard from "./Pages/Admin/Dashboard";
-import Trips from "./Pages/PackageDetails/Trips";
-import Packages from "./Pages/PackageDetails/Packages";
+import Trips from "./Pages/Admin/Trips";
 import EditTrip from "./Pages/Admin/EditTrip";
-import CustomerHome from "./Pages/Customer/CustomerHome";
-import PackageDetails from "./Pages/PackageDetails/PackageDetails";
-import MyBookings from "./Pages/Customer/MyBookings";
 import AdminBookings from "./Pages/Admin/AdminBookings";
-import Navbar from "./Components/Navbar";
 import DestinationManagement from "./Pages/Admin/DestinationManagement";
+
+import Packages from "./Pages/PackageDetails/Packages";
+import PackageDetails from "./Pages/PackageDetails/PackageDetails";
+
+import CustomerHome from "./Pages/Customer/CustomerHome";
+import MyBookings from "./Pages/Customer/MyBookings";
+
 import Flights from "./Pages/Flight/Flights";
 import MyFlightBookings from "./Pages/Flight/MyFlightBookings";
 import FlightResults from "./Pages/Flight/FlightResults";
 
+import Navbar from "./Components/Navbar";
+
 function PrivateRoute({ children, requiredRole }) {
-  const token = localStorage.getItem("accessToken");
+  const token = localStorage.getItem("token"); // ✅ fixed
   const role = localStorage.getItem("role");
 
   if (!token) return <Navigate to="/login" />;
@@ -29,25 +36,20 @@ function PrivateRoute({ children, requiredRole }) {
 function App() {
   return (
     <Router>
-      {/* ✅ Global Navbar */}
+
+      {/* Global Navbar */}
       <Navbar />
 
       <Routes>
+
         {/* Public Routes */}
         <Route path="/" element={<CustomerHome />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/package/:id" element={<PackageDetails />} />
-        <Route path="/admin/destinations" element={<DestinationManagement />} />
+
         <Route path="/flights" element={<Flights />} />
-        <Route path="/flights" element={<FlightResults />} />
-        <Route
-  path="/my-flight-bookings"
-  element={
-    <PrivateRoute requiredRole="User">
-      <MyFlightBookings />
-    </PrivateRoute>
-  }
-/>
+        <Route path="/flight-results" element={<FlightResults />} />
 
         {/* User Routes */}
         <Route
@@ -59,16 +61,16 @@ function App() {
           }
         />
 
-        {/* Admin Routes */}
         <Route
-          path="/admin-bookings"
+          path="/my-flight-bookings"
           element={
-            <PrivateRoute requiredRole="Admin">
-              <AdminBookings />
+            <PrivateRoute requiredRole="User">
+              <MyFlightBookings />
             </PrivateRoute>
           }
         />
 
+        {/* Admin Routes */}
         <Route
           path="/dashboard"
           element={
@@ -104,7 +106,27 @@ function App() {
             </PrivateRoute>
           }
         />
+
+        <Route
+          path="/admin-bookings"
+          element={
+            <PrivateRoute requiredRole="Admin">
+              <AdminBookings />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/admin/destinations"
+          element={
+            <PrivateRoute requiredRole="Admin">
+              <DestinationManagement />
+            </PrivateRoute>
+          }
+        />
+
       </Routes>
+
     </Router>
   );
 }

@@ -42,7 +42,7 @@ function PackageDetails() {
       const formattedDate = new Date(travelDate).toISOString();
 
       await API.post(
-        `/api/Booking?packageId=${pkg.id}&travelDate=${formattedDate}`,
+        `/api/booking?packageId=${pkg.id}&travelDate=${formattedDate}`,
         {},
         {
           headers: {

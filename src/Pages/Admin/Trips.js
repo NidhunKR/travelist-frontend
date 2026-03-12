@@ -18,7 +18,6 @@ function Trips() {
 
   const [searchTerm, setSearchTerm] = useState("");
 
-  // Load Data
   const fetchData = async () => {
     try {
       const packagesRes = await api.get("/api/package");
@@ -36,7 +35,6 @@ function Trips() {
     fetchData();
   }, []);
 
-  // Create Package
   const handleCreate = async (e) => {
     e.preventDefault();
 
@@ -79,7 +77,6 @@ function Trips() {
     }
   };
 
-  // Delete Package
   const handleDelete = async (id) => {
     if (!window.confirm("Delete this package?")) return;
 
@@ -91,7 +88,6 @@ function Trips() {
     }
   };
 
-  // Filter Packages
   const filteredPackages = packages.filter(
     (pkg) =>
       pkg.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -99,34 +95,29 @@ function Trips() {
   );
 
   return (
-    <div style={{ padding: "40px", background: "#f4f6f9" }}>
-      <h2 style={{ marginBottom: "20px" }}>Trips Management</h2>
+    <div style={pageContainer}>
 
-      <button onClick={() => navigate("/dashboard")} style={{ marginBottom: "30px" }}>
-        Back to Dashboard
+      <h2 style={titleStyle}>Trips Management ✈</h2>
+
+      <button onClick={() => navigate("/dashboard")} style={backBtn}>
+        ← Back to Dashboard
       </button>
 
       {/* CREATE PACKAGE */}
 
-      <div
-        style={{
-          background: "white",
-          padding: "25px",
-          borderRadius: "12px",
-          marginBottom: "40px",
-          boxShadow: "0 5px 15px rgba(0,0,0,0.08)",
-        }}
-      >
+      <div style={formBox}>
+
         <h3>Add New Package</h3>
 
-        <form onSubmit={handleCreate}>
+        <form onSubmit={handleCreate} style={formGrid}>
 
           <input
             type="text"
-            placeholder="Title"
+            placeholder="Package Title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             required
+            style={input}
           />
 
           <input
@@ -135,7 +126,7 @@ function Trips() {
             value={price}
             onChange={(e) => setPrice(e.target.value)}
             required
-            style={{ marginLeft: "10px" }}
+            style={input}
           />
 
           <input
@@ -144,44 +135,14 @@ function Trips() {
             value={durationInDays}
             onChange={(e) => setDurationInDays(e.target.value)}
             required
-            style={{ marginLeft: "10px" }}
+            style={input}
           />
-
-          <br /><br />
-
-          <input
-            type="file"
-            accept="image/*"
-            onChange={(e) => setImageFile(e.target.files[0])}
-          />
-
-          <p style={{ margin: "10px 0" }}>OR</p>
-
-          <input
-            type="text"
-            placeholder="Image URL"
-            value={imageUrl}
-            onChange={(e) => setImageUrl(e.target.value)}
-            style={{ width: "300px" }}
-          />
-
-          <br /><br />
-
-          <textarea
-            placeholder="Package Details"
-            value={details}
-            onChange={(e) => setDetails(e.target.value)}
-            rows="3"
-            required
-            style={{ width: "400px" }}
-          />
-
-          <br /><br />
 
           <select
             value={destinationId}
             onChange={(e) => setDestinationId(e.target.value)}
             required
+            style={input}
           >
             <option value="">Select Destination</option>
             {destinations.map((dest) => (
@@ -191,46 +152,55 @@ function Trips() {
             ))}
           </select>
 
-          <button type="submit" style={{ marginLeft: "10px" }}>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={(e) => setImageFile(e.target.files[0])}
+          />
+
+          <input
+            type="text"
+            placeholder="Image URL (optional)"
+            value={imageUrl}
+            onChange={(e) => setImageUrl(e.target.value)}
+            style={input}
+          />
+
+          <textarea
+            placeholder="Package Details"
+            value={details}
+            onChange={(e) => setDetails(e.target.value)}
+            rows="3"
+            required
+            style={textarea}
+          />
+
+          <button type="submit" style={addBtn}>
             Add Package
           </button>
 
         </form>
+
       </div>
 
       {/* SEARCH */}
 
       <input
         type="text"
-        placeholder="Search by title or destination..."
+        placeholder="Search packages..."
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
-        style={{
-          padding: "10px",
-          marginBottom: "30px",
-          width: "300px",
-        }}
+        style={searchInput}
       />
 
       {/* PACKAGE GRID */}
 
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
-          gap: "25px",
-        }}
-      >
+      <div style={grid}>
+
         {filteredPackages.map((pkg) => (
-          <div
-            key={pkg.id}
-            style={{
-              background: "white",
-              borderRadius: "12px",
-              overflow: "hidden",
-              boxShadow: "0 6px 18px rgba(0,0,0,0.08)",
-            }}
-          >
+
+          <div key={pkg.id} style={card}>
+
             <img
               src={
                 pkg.imageUrl
@@ -240,31 +210,41 @@ function Trips() {
                   : "https://via.placeholder.com/400x200"
               }
               alt={pkg.title}
-              style={{ width: "100%", height: "200px", objectFit: "cover" }}
+              style={image}
             />
 
             <div style={{ padding: "20px" }}>
+
               <h3>{pkg.title}</h3>
+
               <p><strong>Destination:</strong> {pkg.destinationName}</p>
               <p><strong>Price:</strong> ₹{pkg.price}</p>
               <p><strong>Duration:</strong> {pkg.durationInDays} Days</p>
 
-              <div style={{ marginTop: "15px" }}>
-                <button onClick={() => navigate(`/trips/edit/${pkg.id}`)}>
+              <div style={cardButtons}>
+
+                <button
+                  onClick={() => navigate(`/trips/edit/${pkg.id}`)}
+                  style={editBtn}
+                >
                   Edit
                 </button>
 
                 <button
                   onClick={() => handleDelete(pkg.id)}
-                  style={{ marginLeft: "10px" }}
+                  style={deleteBtn}
                 >
                   Delete
                 </button>
+
               </div>
 
             </div>
+
           </div>
+
         ))}
+
       </div>
 
     </div>
@@ -272,3 +252,114 @@ function Trips() {
 }
 
 export default Trips;
+
+
+/* STYLES */
+
+const pageContainer = {
+  padding: "50px",
+  background: "#FFF8E1",
+  minHeight: "100vh"
+};
+
+const titleStyle = {
+  fontSize: "32px",
+  fontWeight: "700",
+  marginBottom: "20px"
+};
+
+const backBtn = {
+  background: "#111",
+  color: "white",
+  border: "none",
+  padding: "10px 18px",
+  borderRadius: "20px",
+  marginBottom: "30px",
+  cursor: "pointer"
+};
+
+const formBox = {
+  background: "white",
+  padding: "25px",
+  borderRadius: "14px",
+  marginBottom: "40px",
+  boxShadow: "0 6px 18px rgba(0,0,0,0.08)"
+};
+
+const formGrid = {
+  display: "grid",
+  gap: "12px"
+};
+
+const input = {
+  padding: "10px",
+  borderRadius: "8px",
+  border: "1px solid #ddd"
+};
+
+const textarea = {
+  padding: "10px",
+  borderRadius: "8px",
+  border: "1px solid #ddd"
+};
+
+const addBtn = {
+  background: "#FFC107",
+  color: "#111",
+  border: "none",
+  padding: "12px",
+  borderRadius: "25px",
+  fontWeight: "600",
+  cursor: "pointer"
+};
+
+const searchInput = {
+  padding: "12px",
+  width: "300px",
+  borderRadius: "8px",
+  border: "1px solid #ddd",
+  marginBottom: "30px"
+};
+
+const grid = {
+  display: "grid",
+  gridTemplateColumns: "repeat(auto-fill,minmax(280px,1fr))",
+  gap: "25px"
+};
+
+const card = {
+  background: "white",
+  borderRadius: "14px",
+  overflow: "hidden",
+  boxShadow: "0 6px 18px rgba(0,0,0,0.08)"
+};
+
+const image = {
+  width: "100%",
+  height: "200px",
+  objectFit: "cover"
+};
+
+const cardButtons = {
+  display: "flex",
+  gap: "10px",
+  marginTop: "15px"
+};
+
+const editBtn = {
+  background: "#111",
+  color: "white",
+  border: "none",
+  padding: "8px 14px",
+  borderRadius: "20px",
+  cursor: "pointer"
+};
+
+const deleteBtn = {
+  background: "#ff4d4f",
+  color: "white",
+  border: "none",
+  padding: "8px 14px",
+  borderRadius: "20px",
+  cursor: "pointer"
+};

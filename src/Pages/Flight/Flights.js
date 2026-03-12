@@ -1,5 +1,6 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+
+import { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 
 function Flights() {
 
@@ -8,6 +9,22 @@ function Flights() {
   const [maxPrice, setMaxPrice] = useState("");
 
   const navigate = useNavigate();
+  const location = useLocation();
+  useEffect(() => {
+  const params = new URLSearchParams(location.search);
+
+  const fromParam = params.get("from");
+  const toParam = params.get("to");
+
+  if (fromParam && toParam) {
+    setFrom(fromParam);
+    setTo(toParam);
+
+    navigate(`/flight-results?from=${fromParam}&to=${toParam}`);
+  }
+
+}, [location.search,navigate]);
+  
 
   const searchFlights = () => {
 
@@ -16,42 +33,51 @@ function Flights() {
       return;
     }
 
-    navigate(`/flights?from=${from}&to=${to}&maxPrice=${maxPrice}`);
+    navigate(`/flight-results?from=${from}&to=${to}&maxPrice=${maxPrice}`);
   };
 
   return (
     <div style={searchContainer}>
 
-      <h2>✈ Search Flights</h2>
+      <h2 style={title}>Search Flights ✈️</h2>
 
       <div style={searchRow}>
 
-        <input
-          type="text"
-          placeholder="From City"
-          value={from}
-          onChange={(e)=>setFrom(e.target.value)}
-          style={inputStyle}
-        />
+        <div style={inputBox}>
+          <label style={label}>From</label>
+          <input
+            type="text"
+            placeholder="Departure City"
+            value={from}
+            onChange={(e)=>setFrom(e.target.value)}
+            style={inputStyle}
+          />
+        </div>
 
-        <input
-          type="text"
-          placeholder="To City"
-          value={to}
-          onChange={(e)=>setTo(e.target.value)}
-          style={inputStyle}
-        />
+        <div style={inputBox}>
+          <label style={label}>To</label>
+          <input
+            type="text"
+            placeholder="Destination City"
+            value={to}
+            onChange={(e)=>setTo(e.target.value)}
+            style={inputStyle}
+          />
+        </div>
 
-        <input
-          type="number"
-          placeholder="Max Price"
-          value={maxPrice}
-          onChange={(e)=>setMaxPrice(e.target.value)}
-          style={inputStyle}
-        />
+        <div style={inputBox}>
+          <label style={label}>Max Price</label>
+          <input
+            type="number"
+            placeholder="Optional"
+            value={maxPrice}
+            onChange={(e)=>setMaxPrice(e.target.value)}
+            style={inputStyle}
+          />
+        </div>
 
         <button onClick={searchFlights} style={searchButton}>
-          Search Flights
+          🔎 Search
         </button>
 
       </div>
@@ -64,36 +90,54 @@ function Flights() {
 
 const searchContainer = {
   background: "white",
-  padding: "30px",
-  borderRadius: "12px",
-  maxWidth: "900px",
+  padding: "35px",
+  borderRadius: "16px",
+  maxWidth: "950px",
   margin: "auto",
-  boxShadow: "0 10px 30px rgba(0,0,0,0.1)",
-  textAlign: "center"
+  boxShadow: "0 8px 25px rgba(0,0,0,0.08)"
+};
+
+const title = {
+  marginBottom: "25px",
+  fontSize: "26px",
+  fontWeight: "700",
+  color: "#222"
 };
 
 const searchRow = {
+  display: "grid",
+  gridTemplateColumns: "1fr 1fr 1fr auto",
+  gap: "18px",
+  alignItems: "end"
+};
+
+const inputBox = {
   display: "flex",
-  gap: "15px",
-  flexWrap: "wrap",
-  justifyContent: "center"
+  flexDirection: "column"
+};
+
+const label = {
+  fontSize: "13px",
+  color: "#777",
+  marginBottom: "4px"
 };
 
 const inputStyle = {
   padding: "12px",
   borderRadius: "8px",
   border: "1px solid #ddd",
-  minWidth: "160px"
+  fontSize: "14px"
 };
 
 const searchButton = {
-  background: "#2c5364",
+  background: "#111",
   color: "white",
   border: "none",
-  padding: "12px 25px",
-  borderRadius: "8px",
+  padding: "12px 26px",
+  borderRadius: "25px",
   cursor: "pointer",
-  fontWeight: "bold"
+  fontWeight: "600",
+  height: "44px"
 };
 
 export default Flights;

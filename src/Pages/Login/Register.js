@@ -10,43 +10,33 @@ import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Link from "@mui/material/Link";
 
-function Login() {
-
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
+function Register() {
 
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleRegister = async (e) => {
     e.preventDefault();
 
     try {
 
-      setLoading(true);
-
-      const res = await API.post("/api/Auth/login", {
+      await API.post("/api/Auth/register", {
+        name,
         email,
         password
       });
 
-      localStorage.setItem("token", res.data.token);
-      localStorage.setItem("refreshToken", res.data.refreshToken);
-      localStorage.setItem("role", res.data.role);
-      window.location.href = "/login";
+      alert("Registration successful!");
 
-      if (res.data.role === "Admin") {
-        window.location.href = "/dashboard";
-      } else {
-        window.location.href = "/";
-      }
+      navigate("/login");
 
     } catch (err) {
 
-      alert(err.response?.data?.message || "Invalid email or password");
+      alert(err.response?.data?.message || "Registration failed");
 
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -56,10 +46,18 @@ function Login() {
       <Paper elevation={4} sx={{ p: 4, mt: 10 }}>
 
         <Typography variant="h4" align="center" gutterBottom>
-          Travelist Login ✈
+          Create Account ✈
         </Typography>
 
-        <Box component="form" onSubmit={handleLogin}>
+        <Box component="form" onSubmit={handleRegister}>
+
+          <TextField
+            label="Full Name"
+            fullWidth
+            margin="normal"
+            required
+            onChange={(e) => setName(e.target.value)}
+          />
 
           <TextField
             label="Email"
@@ -84,20 +82,18 @@ function Login() {
             variant="contained"
             fullWidth
             sx={{ mt: 3 }}
-            disabled={loading}
           >
-            {loading ? "Logging in..." : "Login"}
+            Register
           </Button>
 
-          {/* REGISTER LINK */}
           <Typography align="center" sx={{ mt: 2 }}>
-            Don't have an account?{" "}
+            Already have an account?{" "}
             <Link
               component="button"
               variant="body2"
-              onClick={() => navigate("/register")}
+              onClick={() => navigate("/login")}
             >
-              Register
+              Login
             </Link>
           </Typography>
 
@@ -109,4 +105,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Register;
