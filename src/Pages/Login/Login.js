@@ -34,7 +34,7 @@ function Login() {
       localStorage.setItem("role", res.data.role);
 
       if (res.data.role === "Admin") {
-        window.location.href = "/dashboard";
+        window.location.href = "/Dashboard";
       } else {
         window.location.href = "/";
       }
