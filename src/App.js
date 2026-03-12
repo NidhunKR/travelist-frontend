@@ -10,6 +10,9 @@ import MyBookings from "./Pages/Customer/MyBookings";
 import AdminBookings from "./Pages/Admin/AdminBookings";
 import Navbar from "./Components/Navbar";
 import DestinationManagement from "./Pages/Admin/DestinationManagement";
+import Flights from "./Pages/Flight/Flights";
+import MyFlightBookings from "./Pages/Flight/MyFlightBookings";
+import FlightResults from "./Pages/Flight/FlightResults";
 
 function PrivateRoute({ children, requiredRole }) {
   const token = localStorage.getItem("accessToken");
@@ -35,6 +38,16 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/package/:id" element={<PackageDetails />} />
         <Route path="/admin/destinations" element={<DestinationManagement />} />
+        <Route path="/flights" element={<Flights />} />
+        <Route path="/flights" element={<FlightResults />} />
+        <Route
+  path="/my-flight-bookings"
+  element={
+    <PrivateRoute requiredRole="User">
+      <MyFlightBookings />
+    </PrivateRoute>
+  }
+/>
 
         {/* User Routes */}
         <Route
