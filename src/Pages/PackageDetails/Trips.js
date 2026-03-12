@@ -8,7 +8,6 @@ function Trips() {
   const [packages, setPackages] = useState([]);
   const [destinations, setDestinations] = useState([]);
 
-  // Form states
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
   const [durationInDays, setDurationInDays] = useState("");
@@ -22,11 +21,12 @@ function Trips() {
   // Load Data
   const fetchData = async () => {
     try {
-      const packagesRes = await api.get("/Package");
-      const destinationsRes = await api.get("/Destination");
+      const packagesRes = await api.get("/api/package");
+      const destinationsRes = await api.get("/api/destination");
 
       setPackages(packagesRes.data);
       setDestinations(destinationsRes.data);
+
     } catch (err) {
       console.log("Error loading data:", err);
     }
@@ -60,15 +60,10 @@ function Trips() {
         formData.append("ImageUrl", imageUrl);
       }
 
-      await api.post("/Package", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      await api.post("/api/package", formData);
 
       alert("Package Created Successfully!");
 
-      // Reset form
       setTitle("");
       setPrice("");
       setDurationInDays("");
@@ -77,27 +72,26 @@ function Trips() {
       setDestinationId("");
       setImageFile(null);
 
-      // Reload packages
       fetchData();
 
     } catch (error) {
-      console.log(error);
+      console.log("Create error:", error);
     }
   };
 
-  // Delete
+  // Delete Package
   const handleDelete = async (id) => {
     if (!window.confirm("Delete this package?")) return;
 
     try {
-      await api.delete(`/Package/${id}`);
+      await api.delete(`/api/package/${id}`);
       setPackages(packages.filter((pkg) => pkg.id !== id));
     } catch (error) {
       console.log("Delete error:", error);
     }
   };
 
-  // Filter
+  // Filter Packages
   const filteredPackages = packages.filter(
     (pkg) =>
       pkg.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -112,7 +106,7 @@ function Trips() {
         Back to Dashboard
       </button>
 
-      {/* ================= CREATE FORM ================= */}
+      {/* CREATE PACKAGE */}
 
       <div
         style={{
@@ -126,6 +120,7 @@ function Trips() {
         <h3>Add New Package</h3>
 
         <form onSubmit={handleCreate}>
+
           <input
             type="text"
             placeholder="Title"
@@ -153,8 +148,6 @@ function Trips() {
           />
 
           <br /><br />
-
-          {/* IMAGE SECTION */}
 
           <input
             type="file"
@@ -201,10 +194,11 @@ function Trips() {
           <button type="submit" style={{ marginLeft: "10px" }}>
             Add Package
           </button>
+
         </form>
       </div>
 
-      {/* ================= SEARCH ================= */}
+      {/* SEARCH */}
 
       <input
         type="text"
@@ -218,7 +212,7 @@ function Trips() {
         }}
       />
 
-      {/* ================= PACKAGE GRID ================= */}
+      {/* PACKAGE GRID */}
 
       <div
         style={{
@@ -238,16 +232,16 @@ function Trips() {
             }}
           >
             <img
-  src={
-    pkg.imageUrl
-      ? pkg.imageUrl.startsWith("http")
-        ? pkg.imageUrl
-        : `https://localhost:7036${pkg.imageUrl}`
-      : "https://via.placeholder.com/400x200"
-  }
-  alt={pkg.title}
-  style={{ width: "100%", height: "200px", objectFit: "cover" }}
-/>
+              src={
+                pkg.imageUrl
+                  ? pkg.imageUrl.startsWith("http")
+                    ? pkg.imageUrl
+                    : `https://travelist-backend-i8zf.onrender.com/${pkg.imageUrl}`
+                  : "https://via.placeholder.com/400x200"
+              }
+              alt={pkg.title}
+              style={{ width: "100%", height: "200px", objectFit: "cover" }}
+            />
 
             <div style={{ padding: "20px" }}>
               <h3>{pkg.title}</h3>
@@ -267,10 +261,12 @@ function Trips() {
                   Delete
                 </button>
               </div>
+
             </div>
           </div>
         ))}
       </div>
+
     </div>
   );
 }

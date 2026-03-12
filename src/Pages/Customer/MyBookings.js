@@ -10,7 +10,7 @@ function MyBookings() {
 
   const fetchBookings = async () => {
     try {
-      const res = await API.get("/Booking/my-bookings");
+      const res = await API.get("/api/booking/my-bookings");
       setBookings(res.data);
     } catch (err) {
       console.log("Error loading bookings:", err);

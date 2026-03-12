@@ -168,7 +168,7 @@ function DestinationManagement() {
 
             {dest.imageUrl && (
               <img
-                src={`https://travelist-backend-i8zf.onrender.com${dest.imageUrl}`}
+                src={`https://travelist-backend-i8zf.onrender.com/${dest.imageUrl}`}
                 alt={dest.name}
                 width="70"
                 style={{ borderRadius: "6px" }}
