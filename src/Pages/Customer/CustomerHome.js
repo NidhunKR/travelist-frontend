@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 import API from "../../Services/api";
 import { useNavigate } from "react-router-dom";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import GitHubIcon from "@mui/icons-material/GitHub";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import XIcon from "@mui/icons-material/X";
 
 function CustomerHome() {
   const [packages, setPackages] = useState([]);
@@ -132,6 +137,7 @@ function CustomerHome() {
         <h2 style={sectionTitle}>
           Popular Travel Packages ✨
         </h2>
+        
 
         {/* PACKAGE GRID */}
         <div style={gridContainer}>
@@ -170,16 +176,99 @@ function CustomerHome() {
                 >
                   View Details
                 </button>
+                
 
               </div>
+              
 
             </div>
+            
 
           ))}
 
         </div>
 
       </div>
+      {/* ABOUT PROJECT SECTION */}
+
+<div style={aboutSection}>
+
+  <h2 style={aboutTitle}>About Travelist 🚀</h2>
+
+  <p style={aboutText}>
+    Travelist is a modern full‑stack travel booking web application designed
+    to help users explore destinations, discover travel packages, and search
+    flights easily from one platform.
+  </p>
+
+  <p style={aboutText}>
+    The frontend of this project is developed using <strong>React.js</strong>
+    to build a responsive and interactive user interface. Styling and UI
+    components are implemented using <strong>Material UI</strong> and modern
+    CSS techniques.
+  </p>
+
+  <p style={aboutText}>
+    The backend is powered by <strong>ASP.NET Core Web API</strong>, which
+    handles authentication, travel package management, flight searching,
+    and destination data management through RESTful APIs.
+  </p>
+
+  <p style={aboutText}>
+    The application uses <strong>JWT Authentication</strong> for secure login
+    and role-based access between Admin and Customer users. Data is stored
+    in a <strong>SQL Server database</strong> and the application is deployed
+    using modern cloud hosting services.
+  </p>
+
+  <p style={aboutText}>
+    This project demonstrates full‑stack development concepts including
+    API integration, authentication, database connectivity, responsive UI
+    design, and real-world application deployment.
+  </p>
+
+</div>
+
+
+{/* FOOTER */}
+
+<div style={footer}>
+
+  <h3 style={{marginBottom:"10px"}}>Travelist ✈</h3>
+
+  <p style={{marginBottom:"20px"}}>
+    Built with ❤️ using React, ASP.NET Core, and SQL Server
+  </p>
+
+  <div style={socialLinks}>
+
+  <a href="https://www.instagram.com/ni_dhun__k__r/" target="_blank" rel="noopener noreferrer" style={iconLink}>
+  <InstagramIcon style={iconStyle} />
+</a>
+
+<a href="https://github.com/NidhunKR" target="_blank" rel="noopener noreferrer" style={iconLink}>
+  <GitHubIcon style={iconStyle} />
+</a>
+
+<a href="https://www.linkedin.com/in/nidhunkr/" target="_blank" rel="noopener noreferrer" style={iconLink}>
+  <LinkedInIcon style={iconStyle} />
+</a>
+
+<a href="https://www.facebook.com/nidhunpry.sahara/" target="_blank" rel="noopener noreferrer" style={iconLink}>
+  <FacebookIcon style={iconStyle} />
+</a>
+
+<a href="https://x.com/Nidhunkr1K" target="_blank" rel="noopener noreferrer" style={iconLink}>
+  <XIcon style={iconStyle} />
+</a>
+
+</div>
+
+  <p style={{marginTop:"20px",fontSize:"14px"}}>
+    © 2026 Travelist Project
+  </p>
+
+</div>
 
     </div>
   );
@@ -309,4 +398,52 @@ const viewButton = {
   cursor: "pointer",
   fontWeight: "600",
   width: "100%"
+};
+const aboutSection = {
+  padding: "80px 80px",
+  background: "#FFF8E1",
+  textAlign: "center"
+};
+
+const aboutTitle = {
+  fontSize: "32px",
+  fontWeight: "700",
+  marginBottom: "25px",
+  color: "#222"
+};
+
+const aboutText = {
+  maxWidth: "850px",
+  margin: "12px auto",
+  fontSize: "16px",
+  lineHeight: "1.8",
+  color: "#555"
+};
+
+const footer = {
+  background: "#111",
+  color: "white",
+  textAlign: "center",
+  padding: "40px 20px"
+};
+
+const socialLinks = {
+  display: "flex",
+  justifyContent: "center",
+  gap: "25px",
+  flexWrap: "wrap"
+};
+
+const iconLink = {
+  color: "white",
+  textDecoration: "none",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center"
+};
+
+const iconStyle = {
+  fontSize: "32px",
+  cursor: "pointer",
+  transition: "0.3s"
 };

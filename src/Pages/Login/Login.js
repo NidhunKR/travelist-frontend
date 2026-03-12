@@ -22,7 +22,6 @@ function Login() {
     e.preventDefault();
 
     try {
-
       setLoading(true);
 
       const res = await API.post("/api/Auth/login", {
@@ -33,7 +32,6 @@ function Login() {
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("refreshToken", res.data.refreshToken);
       localStorage.setItem("role", res.data.role);
-      window.location.href = "/login";
 
       if (res.data.role === "Admin") {
         window.location.href = "/dashboard";
@@ -42,71 +40,104 @@ function Login() {
       }
 
     } catch (err) {
-
       alert(err.response?.data?.message || "Invalid email or password");
-
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <Container maxWidth="sm">
+    <div style={pageWrapper}>
 
-      <Paper elevation={4} sx={{ p: 4, mt: 10 }}>
+      <Container maxWidth="sm">
 
-        <Typography variant="h4" align="center" gutterBottom>
-          Travelist Login ✈
-        </Typography>
+        <Paper elevation={6} sx={{ p: 5, borderRadius: "16px" }}>
+          {/* LOGO */}
+  <img
+    src="/travelist-logo.png"
+    alt="Travelist"
+    style={{
+      height: "60px",
+      display: "block",
+      margin: "0 auto 20px"
+    }}
+  />
 
-        <Box component="form" onSubmit={handleLogin}>
-
-          <TextField
-            label="Email"
-            type="email"
-            fullWidth
-            margin="normal"
-            required
-            onChange={(e) => setEmail(e.target.value)}
-          />
-
-          <TextField
-            label="Password"
-            type="password"
-            fullWidth
-            margin="normal"
-            required
-            onChange={(e) => setPassword(e.target.value)}
-          />
-
-          <Button
-            type="submit"
-            variant="contained"
-            fullWidth
-            sx={{ mt: 3 }}
-            disabled={loading}
-          >
-            {loading ? "Logging in..." : "Login"}
-          </Button>
-
-          {/* REGISTER LINK */}
-          <Typography align="center" sx={{ mt: 2 }}>
-            Don't have an account?{" "}
-            <Link
-              component="button"
-              variant="body2"
-              onClick={() => navigate("/register")}
-            >
-              Register
-            </Link>
+          <Typography variant="h4" align="center" fontWeight="bold">
+            Welcome Back ✈️
           </Typography>
 
-        </Box>
+          <Typography align="center" color="text.secondary" sx={{ mb: 3 }}>
+            Login to continue your journey with Travelist
+          </Typography>
 
-      </Paper>
+          <Box component="form" onSubmit={handleLogin}>
 
-    </Container>
+            <TextField
+              label="Email Address"
+              type="email"
+              fullWidth
+              margin="normal"
+              required
+              onChange={(e) => setEmail(e.target.value)}
+            />
+
+            <TextField
+              label="Password"
+              type="password"
+              fullWidth
+              margin="normal"
+              required
+              onChange={(e) => setPassword(e.target.value)}
+            />
+
+            <Button
+              type="submit"
+              variant="contained"
+              fullWidth
+              disabled={loading}
+              sx={{
+                mt: 3,
+                py: 1.4,
+                borderRadius: "30px",
+                fontWeight: "bold",
+                backgroundColor: "#111",
+                "&:hover": { backgroundColor: "#333" }
+              }}
+            >
+              {loading ? "Signing in..." : "Login"}
+            </Button>
+
+            <Typography align="center" sx={{ mt: 3 }}>
+              Don't have an account?{" "}
+              <Link
+                component="button"
+                onClick={() => navigate("/register")}
+                underline="hover"
+              >
+                Create Account
+              </Link>
+            </Typography>
+
+          </Box>
+
+        </Paper>
+
+      </Container>
+
+    </div>
   );
 }
 
 export default Login;
+
+
+/* PAGE BACKGROUND */
+
+const pageWrapper = {
+  minHeight: "100vh",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  background: "linear-gradient(135deg,#FFF8E1,#FFE082)"
+};

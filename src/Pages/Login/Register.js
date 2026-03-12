@@ -41,68 +41,103 @@ function Register() {
   };
 
   return (
-    <Container maxWidth="sm">
+    <div style={pageWrapper}>
 
-      <Paper elevation={4} sx={{ p: 4, mt: 10 }}>
+      <Container maxWidth="sm">
 
-        <Typography variant="h4" align="center" gutterBottom>
-          Create Account ✈
-        </Typography>
+        <Paper elevation={6} sx={{ p: 5, borderRadius: "16px" }}>
 
-        <Box component="form" onSubmit={handleRegister}>
+          {/* LOGO */}
+          <Box sx={{ textAlign: "center", mb: 2 }}>
+            <img
+              src="/travelist-logo.png"
+              alt="Travelist"
+              style={{ height: "60px" }}
+            />
+          </Box>
 
-          <TextField
-            label="Full Name"
-            fullWidth
-            margin="normal"
-            required
-            onChange={(e) => setName(e.target.value)}
-          />
-
-          <TextField
-            label="Email"
-            type="email"
-            fullWidth
-            margin="normal"
-            required
-            onChange={(e) => setEmail(e.target.value)}
-          />
-
-          <TextField
-            label="Password"
-            type="password"
-            fullWidth
-            margin="normal"
-            required
-            onChange={(e) => setPassword(e.target.value)}
-          />
-
-          <Button
-            type="submit"
-            variant="contained"
-            fullWidth
-            sx={{ mt: 3 }}
-          >
-            Register
-          </Button>
-
-          <Typography align="center" sx={{ mt: 2 }}>
-            Already have an account?{" "}
-            <Link
-              component="button"
-              variant="body2"
-              onClick={() => navigate("/login")}
-            >
-              Login
-            </Link>
+          <Typography variant="h4" align="center" fontWeight="bold">
+            Create Account ✈️
           </Typography>
 
-        </Box>
+          <Typography align="center" color="text.secondary" sx={{ mb: 3 }}>
+            Start your journey with Travelist
+          </Typography>
 
-      </Paper>
+          <Box component="form" onSubmit={handleRegister}>
 
-    </Container>
+            <TextField
+              label="Full Name"
+              fullWidth
+              margin="normal"
+              required
+              onChange={(e) => setName(e.target.value)}
+            />
+
+            <TextField
+              label="Email Address"
+              type="email"
+              fullWidth
+              margin="normal"
+              required
+              onChange={(e) => setEmail(e.target.value)}
+            />
+
+            <TextField
+              label="Password"
+              type="password"
+              fullWidth
+              margin="normal"
+              required
+              onChange={(e) => setPassword(e.target.value)}
+            />
+
+            <Button
+              type="submit"
+              variant="contained"
+              fullWidth
+              sx={{
+                mt: 3,
+                py: 1.4,
+                borderRadius: "30px",
+                fontWeight: "bold",
+                backgroundColor: "#111",
+                "&:hover": { backgroundColor: "#333" }
+              }}
+            >
+              Register
+            </Button>
+
+            <Typography align="center" sx={{ mt: 3 }}>
+              Already have an account?{" "}
+              <Link
+                component="button"
+                onClick={() => navigate("/login")}
+                underline="hover"
+              >
+                Login
+              </Link>
+            </Typography>
+
+          </Box>
+
+        </Paper>
+
+      </Container>
+
+    </div>
   );
 }
 
 export default Register;
+
+
+/* PAGE BACKGROUND */
+
+const pageWrapper = {
+  minHeight: "100vh",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  background: "linear-gradient(135deg,#FFF8E1,#FFE082)"
+};
