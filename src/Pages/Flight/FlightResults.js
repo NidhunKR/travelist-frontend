@@ -86,11 +86,11 @@ function FlightResults() {
   }
 
   return (
-    <div style={{ padding: "40px 60px", background: "#FFF8E1", minHeight: "100vh" }}>
+    <div style={{ padding: "30px 20px", background: "#FFF8E1", minHeight: "100vh" }}>
 
       <h2 style={{
   marginBottom: "25px",
-  fontSize: "32px",
+  fontSize: "clamp(24px,5vw,32px)",
   color: "#222",
   fontWeight: "700"
 }}>
@@ -105,10 +105,9 @@ padding: "28px",
 borderRadius: "16px",
 marginBottom: "35px",
 boxShadow: "0 6px 20px rgba(0,0,0,0.1)",
-display: "flex",
-gap: "20px",
-alignItems: "end",
-flexWrap: "wrap"
+display: "grid",
+gridTemplateColumns: "repeat(auto-fit,minmax(180px,1fr))",
+gap: "15px"
   }}
 >
 
@@ -184,15 +183,17 @@ style={{
   padding: "24px",
   marginBottom: "20px",
   display: "flex",
-  justifyContent: "space-between",
-  alignItems: "center",
+flexWrap: "wrap",
+gap: "20px",
+alignItems: "center",
+justifyContent: "space-between",
   boxShadow: "0 6px 18px rgba(0,0,0,0.08)",
   transition: "transform 0.2s ease"
 }}
 >
 
 {/* Airline */}
-<div style={{display:"flex",alignItems:"center",gap:"12px",width:"200px"}}>
+<div style={{display:"flex",alignItems:"center",gap:"12px",minWidth:"150px"}}>
   
   <div style={{
     width:"42px",
@@ -241,7 +242,7 @@ color:"#222",
 
 
 {/* Duration */}
-<div style={{textAlign:"center",width:"150px"}}>
+<div style={{textAlign:"center",minwidth:"120px"}}>
 
   <p style={{margin:"0",fontWeight:"500"}}>
     {getDuration(f.departureTime,f.arrivalTime)}
@@ -293,13 +294,9 @@ color:"#222",
 
 
 {/* Price */}
-<div style={{textAlign:"right",minWidth:"130px"}}>
+<div style={{textAlign:"right",minWidth:"120px"}}>
 
-  <h2 style={{
-  margin:"0",
-  color:"#111",
-  fontWeight:"700"
-}}>
+  <h2 style={{fontSize:"clamp(18px,4vw,24px)"}}>
     ₹{(f.price*83).toLocaleString()}
   </h2>
 
@@ -314,6 +311,7 @@ style={{
   color:"white",
   border:"none",
   padding:"10px 20px",
+  width:"100%",
   borderRadius:"22px",
   cursor:"pointer",
   fontWeight:"600"
