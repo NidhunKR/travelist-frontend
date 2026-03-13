@@ -121,7 +121,7 @@ function CustomerHome() {
       </div>
 
       {/* PACKAGES SECTION */}
-      <div style={{ padding: "60px 80px" }}>
+      <div style={{ padding: "60px 20px" }}>
 
         {/* SEARCH BAR */}
         <div style={{ textAlign: "center", marginBottom: "40px" }}>
@@ -286,7 +286,7 @@ const heroSection = {
 };
 
 const heroTitle = {
-  fontSize: "46px",
+  fontSize: "clamp(28px, 6vw, 46px)",
   fontWeight: "700",
   color: "#222"
 };
@@ -309,11 +309,11 @@ const heroOverlay = {
 const flightSearchBox = {
   marginTop: "40px",
   background: "white",
-  padding: "30px",
+  padding: "20px",
   borderRadius: "16px",
   display: "grid",
-  gridTemplateColumns: "2fr 2fr 1fr",
-  gap: "20px",
+  gridTemplateColumns: "repeat(auto-fit, minmax(180px,1fr))",
+  gap: "15px",
   alignItems: "end",
   boxShadow: "0 8px 24px rgba(0,0,0,0.12)",
   maxWidth: "900px",
@@ -352,7 +352,8 @@ const flightSearchButton = {
 };
 
 const packageSearch = {
-  width: "50%",
+  width: "100%",
+  maxWidth: "500px",
   padding: "12px 22px",
   borderRadius: "30px",
   border: "1px solid #ddd",
@@ -362,7 +363,7 @@ const packageSearch = {
 
 const sectionTitle = {
   textAlign: "center",
-  fontSize: "32px",
+  fontSize: "clamp(24px,5vw,32px)",
   marginBottom: "40px",
   color: "#222",
   fontWeight: "700"
@@ -379,13 +380,16 @@ const packageCard = {
   borderRadius: "16px",
   overflow: "hidden",
   boxShadow: "0 8px 20px rgba(0,0,0,0.1)",
-  transition: "transform 0.25s ease"
-  
+  transition: "transform 0.25s ease",
+};
+
+packageCard[':hover'] = {
+  transform: "translateY(-6px)"
 };
 
 const packageImage = {
   width: "100%",
-  height: "200px",
+  height: "180px",
   objectFit: "cover"
 };
 
@@ -400,7 +404,7 @@ const viewButton = {
   width: "100%"
 };
 const aboutSection = {
-  padding: "80px 80px",
+  padding: "80px 20px",
   background: "#FFF8E1",
   textAlign: "center"
 };
@@ -443,7 +447,7 @@ const iconLink = {
 };
 
 const iconStyle = {
-  fontSize: "32px",
+  fontSize: "clamp(24px,5vw,32px)",
   cursor: "pointer",
   transition: "0.3s"
 };
