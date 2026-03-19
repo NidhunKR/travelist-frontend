@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
+import API from "../../Services/api";
 
 function FlightResults() {
 
@@ -84,6 +85,30 @@ function FlightResults() {
       </div>
     );
   }
+  const handleBookFlight = async (flight) => {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    alert("Please login first");
+    navigate("/login");
+    return;
+  }
+
+  try {
+    await API.post("/api/FlightBooking", {
+      flightId: flight.id,
+      passengerName: "Test User", // later you can make input
+      seats: 1
+    });
+
+    alert("Flight booked successfully ✈️");
+    navigate("/my-flight-bookings");
+
+  } catch (err) {
+    console.error("Booking error:", err);
+    alert("Booking failed ❌");
+  }
+};
 
   return (
     <div style={{ padding: "30px 20px", background: "#FFF8E1", minHeight: "100vh" }}>
@@ -305,19 +330,20 @@ color:"#222",
   <br/>
 
   <button
-style={{
-  marginTop:"10px",
-  background:"#111",
-  color:"white",
-  border:"none",
-  padding:"10px 20px",
-  width:"100%",
-  borderRadius:"22px",
-  cursor:"pointer",
-  fontWeight:"600"
-}}
+  onClick={() => handleBookFlight(f)} // ✅ THIS LINE ADDED
+  style={{
+    marginTop:"10px",
+    background:"#111",
+    color:"white",
+    border:"none",
+    padding:"10px 20px",
+    width:"100%",
+    borderRadius:"22px",
+    cursor:"pointer",
+    fontWeight:"600"
+  }}
 >
-Book Flight
+  Book Flight
 </button>
 
 </div>
