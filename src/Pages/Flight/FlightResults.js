@@ -95,11 +95,19 @@ function FlightResults() {
   }
 
   try {
-    await API.post("/api/FlightBooking", {
-      flightId: flight.id,
-      passengerName: "Test User", // later you can make input
-      seats: 1
-    });
+    await API.post(
+      "/api/FlightBooking",
+      {
+        flightId: flight.id,
+        passengerName: "Test User",
+        seats: 1
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}` // ✅ VERY IMPORTANT
+        }
+      }
+    );
 
     alert("Flight booked successfully ✈️");
     navigate("/my-flight-bookings");
