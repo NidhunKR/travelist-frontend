@@ -34,9 +34,9 @@ function Login() {
       localStorage.setItem("role", res.data.role);
 
       if (res.data.role === "Admin") {
-        window.location.href = "/dashboard";
+        navigate("/dashboard");
       } else {
-        window.location.href = "/";
+        navigate("/");
       }
 
     } catch (err) {

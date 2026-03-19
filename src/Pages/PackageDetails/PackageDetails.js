@@ -28,7 +28,7 @@ function PackageDetails() {
       return;
     }
 
-    const token = localStorage.getItem("accessToken");
+    const token = localStorage.getItem("token");
 
     if (!token) {
       alert("Please login first");
@@ -43,12 +43,7 @@ function PackageDetails() {
 
       await API.post(
         `/api/booking?packageId=${pkg.id}&travelDate=${formattedDate}`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+        
       );
 
       alert("Booking Successful 🎉");
